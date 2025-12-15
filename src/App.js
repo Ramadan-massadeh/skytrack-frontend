@@ -1,13 +1,22 @@
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+
+import Home from "./pages/Home";
+import Flights from "./pages/Flights";
+import Airports from "./pages/Airports";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>SkyTrack Frontend 🚀</h1>
-        <p>The frontend is running successfully.</p>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/flights" element={<Flights />} />
+        <Route path="/airports" element={<Airports />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
