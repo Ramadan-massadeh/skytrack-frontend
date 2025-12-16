@@ -1,0 +1,27 @@
+.airports {
+  text-align: center;
+}
+
+.airport-form {
+  margin-bottom: 30px;
+}
+
+.airport-form input {
+  margin: 5px;
+  padding: 8px;
+}
+
+.airport-form button {
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.airport-card {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 15px auto;
+  width: 300px;
+  color: #fff;
+}

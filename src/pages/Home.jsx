@@ -1,10 +1,13 @@
+import "../styles/Home.css";
+
 function Home() {
   return (
-    <div className="page">
-      <div className="home">
-        <h2>Welcome to SkyTrack ✈️</h2>
-        <p>Flight tracking made simple.</p>
-      </div>
+    <div className="home">
+      <h1>Welcome to SkyTrack </h1>
+      <p>
+        SkyTrack is a flight tracking system that allows users to view flights,
+        airports, and manage flight data.
+      </p>
     </div>
   );
 }

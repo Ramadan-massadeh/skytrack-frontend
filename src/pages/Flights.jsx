@@ -1,114 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import "../styles/Flights.css";
+
+const API_BASE = "http://localhost:8082";
 
 function Flights() {
-  const [flights, setFlights] = useState([
-    {
-      id: 1,
-      from: "Toronto",
-      to: "London",
-      airline: "Air Canada",
-      status: "On Time",
-    },
-    {
-      id: 2,
-      from: "New York",
-      to: "Paris",
-      airline: "Air France",
-      status: "Delayed",
-    },
-  ]);
+  const [flights, setFlights] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [form, setForm] = useState({
-    from: "",
-    to: "",
-    airline: "",
-    status: "On Time",
-  });
+  useEffect(() => {
+    fetch(`${API_BASE}/api/flights`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFlights(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
 
-  // CREATE
-  const addFlight = (e) => {
-    e.preventDefault();
-
-    const newFlight = {
-      id: Date.now(),
-      ...form,
-    };
-
-    setFlights([...flights, newFlight]);
-    setForm({ from: "", to: "", airline: "", status: "On Time" });
-  };
-
-  // DELETE
-  const deleteFlight = (id) => {
-    setFlights(flights.filter((flight) => flight.id !== id));
-  };
-
-  // UPDATE (toggle status)
-  const toggleStatus = (id) => {
-    setFlights(
-      flights.map((flight) =>
-        flight.id === id
-          ? {
-              ...flight,
-              status: flight.status === "On Time" ? "Delayed" : "On Time",
-            }
-          : flight
-      )
+  if (loading) {
+    return (
+      <div className="page">
+        <p>Loading flights...</p>
+      </div>
     );
-  };
+  }
 
   return (
     <div className="page">
-      <h2>Flights ✈️</h2>
+      <h2>Flights </h2>
 
-      {/* CREATE */}
-      <form onSubmit={addFlight}>
-        <input
-          placeholder="From"
-          value={form.from}
-          onChange={(e) => setForm({ ...form, from: e.target.value })}
-        />
-        <input
-          placeholder="To"
-          value={form.to}
-          onChange={(e) => setForm({ ...form, to: e.target.value })}
-        />
-        <input
-          placeholder="Airline"
-          value={form.airline}
-          onChange={(e) => setForm({ ...form, airline: e.target.value })}
-        />
-        <select
-          value={form.status}
-          onChange={(e) => setForm({ ...form, status: e.target.value })}
-        >
-          <option>On Time</option>
-          <option>Delayed</option>
-        </select>
+      {flights.length === 0 && <p>No flights available.</p>}
 
-        <button type="submit">Add Flight</button>
-      </form>
-
-      <hr />
-
-      {/* READ */}
       {flights.map((flight) => (
-        <div key={flight.id}>
+        <div key={flight.id} className="flight-card">
           <h4>
-            {flight.from} → {flight.to}
+            {flight.originCode} → {flight.destinationCode}
           </h4>
-          <p>Airline: {flight.airline}</p>
+          <p>Airline: {flight.airlineName}</p>
           <p>Status: {flight.status}</p>
-
-          {/* UPDATE */}
-          <button onClick={() => toggleStatus(flight.id)}>
-            Toggle Status
-          </button>
-
-          {/* DELETE */}
-          <button onClick={() => deleteFlight(flight.id)}>Delete</button>
-
-          <hr />
         </div>
       ))}
     </div>

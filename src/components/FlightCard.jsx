@@ -1,9 +1,19 @@
-function FlightCard() {
+function FlightCard({ flight, onToggleStatus, onDelete }) {
   return (
     <div className="flight-card">
-      <h3>Toronto → London</h3>
-      <p>Airline: Air Canada</p>
-      <p>Status: On Time</p>
+      <h4>
+        {flight.from} → {flight.to}
+      </h4>
+      <p>Airline: {flight.airline}</p>
+      <p>Status: {flight.status}</p>
+
+      <button onClick={() => onToggleStatus(flight.id)}>
+        Toggle Status
+      </button>
+
+      <button onClick={() => onDelete(flight.id)}>
+        Delete
+      </button>
     </div>
   );
 }

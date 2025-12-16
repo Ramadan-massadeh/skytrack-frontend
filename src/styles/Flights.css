@@ -1,0 +1,10 @@
+.flight-card {
+  background: #0f172a;
+  color:white;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 15px auto;
+  width: 320px;
+  text-align: left;
+}
