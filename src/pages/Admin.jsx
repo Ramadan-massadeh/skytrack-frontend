@@ -1,8 +1,6 @@
 import { useState } from "react";
 import "../styles/Admin.css";
 
-const API_BASE = "http://localhost:8082";
-
 function Admin() {
   const [form, setForm] = useState({
     flightNumber: "",
@@ -25,41 +23,22 @@ function Admin() {
   const submitFlight = (e) => {
     e.preventDefault();
 
-    fetch(`${API_BASE}/api/flights`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...form,
-        airlineId: Number(form.airlineId),
-        originAirportId: Number(form.originAirportId),
-        destinationAirportId: Number(form.destinationAirportId),
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to add flight");
-        }
-        return res.json();
-      })
-      .then(() => {
-        alert("Flight added successfully");
-        setForm({
-          flightNumber: "",
-          airlineId: "",
-          originAirportId: "",
-          destinationAirportId: "",
-          direction: "DEPARTURE",
-          status: "SCHEDULED",
-          departureTime: "",
-          arrivalTime: "",
-        });
-      })
-      .catch((err) => {
-        alert("Error adding flight");
-        console.error(err);
-      });
+    console.log("Admin flight demo submit:", form);
+
+    alert(
+      "Flight submitted (demo mode).\n\nThis form demonstrates admin input handling."
+    );
+
+    setForm({
+      flightNumber: "",
+      airlineId: "",
+      originAirportId: "",
+      destinationAirportId: "",
+      direction: "DEPARTURE",
+      status: "SCHEDULED",
+      departureTime: "",
+      arrivalTime: "",
+    });
   };
 
   return (
@@ -69,7 +48,7 @@ function Admin() {
       <form className="admin-form" onSubmit={submitFlight}>
         <input
           name="flightNumber"
-          placeholder="Flight Number"
+          placeholder="Flight Number (AC202)"
           value={form.flightNumber}
           onChange={handleChange}
         />
@@ -95,20 +74,12 @@ function Admin() {
           onChange={handleChange}
         />
 
-        <select
-          name="direction"
-          value={form.direction}
-          onChange={handleChange}
-        >
+        <select name="direction" value={form.direction} onChange={handleChange}>
           <option value="DEPARTURE">DEPARTURE</option>
           <option value="ARRIVAL">ARRIVAL</option>
         </select>
 
-        <select
-          name="status"
-          value={form.status}
-          onChange={handleChange}
-        >
+        <select name="status" value={form.status} onChange={handleChange}>
           <option value="SCHEDULED">SCHEDULED</option>
           <option value="DELAYED">DELAYED</option>
           <option value="CANCELLED">CANCELLED</option>
@@ -128,7 +99,7 @@ function Admin() {
           onChange={handleChange}
         />
 
-        <button type="submit">Add Flight</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
