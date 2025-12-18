@@ -69,6 +69,8 @@ npm start
       http://localhost:3000
 Note: The backend server must be running locally for the frontend to display data correctly.
 
+Demo Video
+https://drive.google.com/file/d/1q1RoqBCV37RXpinnrNRvQnfeOyHA9YLq/view?usp=share_link
 
 Author
 
